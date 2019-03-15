@@ -18,18 +18,17 @@
  <body>
  <h1>Register here!</h1>
  <p>Fill in your name and email address, then click <strong>Submit</strong> to register.</p>
- <form method="post" action="index.php" enctype="multipart/form-data" >
+ <form method="post" action="index.php" >
        Name  <input type="text" name="name" id="name"/></br></br>
-       Email <input type="text" name="email" id="email"/></br></br>
-       Job <input type="text" name="job" id="job"/></br></br>
+       Address<input type="text" name="address" id="address"/></br></br>
        <input type="submit" name="submit" value="Submit" />
        <input type="submit" name="load_data" value="Load Data" />
  </form>
  <?php
-    $host = "<Nama server database Anda>";
-    $user = "<Nama admin database Anda>";
-    $pass = "<Password admin database Anda>";
-    $db = "<Nama database Anda>";
+    $host = "yusuf.database.windows.net";
+    $user = "blegoh";
+    $pass = "blg123!@#";
+    $db = "yusuf";
 
     try {
         $conn = new PDO("sqlsrv:server = $host; Database = $db", $user, $pass);
@@ -41,17 +40,13 @@
     if (isset($_POST['submit'])) {
         try {
             $name = $_POST['name'];
-            $email = $_POST['email'];
-            $job = $_POST['job'];
-            $date = date("Y-m-d");
-            // Insert data
-            $sql_insert = "INSERT INTO Registration (name, email, job, date) 
-                        VALUES (?,?,?,?)";
+            $address = $_POST['address'];
+            
+            $sql_insert = "INSERT INTO dbo.Users (Name, Address) 
+                        VALUES (?,?)";
             $stmt = $conn->prepare($sql_insert);
             $stmt->bindValue(1, $name);
-            $stmt->bindValue(2, $email);
-            $stmt->bindValue(3, $job);
-            $stmt->bindValue(4, $date);
+            $stmt->bindValue(2, $address);
             $stmt->execute();
         } catch(Exception $e) {
             echo "Failed: " . $e;
@@ -67,14 +62,10 @@
                 echo "<h2>People who are registered:</h2>";
                 echo "<table>";
                 echo "<tr><th>Name</th>";
-                echo "<th>Email</th>";
-                echo "<th>Job</th>";
-                echo "<th>Date</th></tr>";
+                echo "<th>Address</th></tr>";
                 foreach($registrants as $registrant) {
                     echo "<tr><td>".$registrant['name']."</td>";
-                    echo "<td>".$registrant['email']."</td>";
-                    echo "<td>".$registrant['job']."</td>";
-                    echo "<td>".$registrant['date']."</td></tr>";
+                    echo "<td>".$registrant['address']."</td></tr>";
                 }
                 echo "</table>";
             } else {
