@@ -42,7 +42,7 @@
             $name = $_POST['name'];
             $address = $_POST['address'];
             
-            $sql_insert = "INSERT INTO dbo.Users (Name, Address) 
+            $sql_insert = "INSERT INTO Users (Name, Address) 
                         VALUES (?,?)";
             $stmt = $conn->prepare($sql_insert);
             $stmt->bindValue(1, $name);
@@ -55,7 +55,7 @@
         echo "<h3>Your're registered!</h3>";
     } else if (isset($_POST['load_data'])) {
         try {
-            $sql_select = "SELECT * FROM Registration";
+            $sql_select = "SELECT * FROM Users";
             $stmt = $conn->query($sql_select);
             $registrants = $stmt->fetchAll(); 
             if(count($registrants) > 0) {
