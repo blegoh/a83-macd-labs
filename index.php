@@ -64,8 +64,8 @@
                 echo "<tr><th>Name</th>";
                 echo "<th>Address</th></tr>";
                 foreach($registrants as $registrant) {
-                    echo "<tr><td>".$registrant['name']."</td>";
-                    echo "<td>".$registrant['address']."</td></tr>";
+                    echo "<tr><td>".$registrant['Name']."</td>";
+                    echo "<td>".$registrant['Address']."</td></tr>";
                 }
                 echo "</table>";
             } else {
